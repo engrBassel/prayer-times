@@ -1,8 +1,8 @@
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
-import { City } from "../App";
+import DateTime from "./DateTime";
 
-function Info({ city }: { city: City }) {
+function Info({ cityArName }: { cityArName: string }) {
   return (
     <Grid
       container
@@ -13,8 +13,8 @@ function Info({ city }: { city: City }) {
       textAlign="center"
     >
       <Stack spacing={2}>
-        <p>أبريل 29 2024 | 02:50</p>
-        <h2>{city.arName}</h2>
+        <DateTime />
+        <h2>{cityArName}</h2>
       </Stack>
       <Stack spacing={2}>
         <p>متبقي حتى صلاة العصر</p>

@@ -1,8 +1,11 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Grid from "@mui/material/Unstable_Grid2";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { City } from "../App";
 
 type Times = {
   Fajr: string;
@@ -35,7 +38,35 @@ const timesNames = [
   },
 ];
 
-function Times({ times }: { times: Times }) {
+function Times({ city }: { city: City }) {
+  const [times, setTimes] = useState({
+    Fajr: "00:00",
+    Dhuhr: "00:00",
+    Asr: "00:00",
+    Maghrib: "00:00",
+    Isha: "00:00",
+  });
+
+  useEffect(() => {
+    async function getTimes() {
+      try {
+        const {
+          data: {
+            data: {
+              timings: { Fajr, Dhuhr, Asr, Maghrib, Isha },
+            },
+          },
+        } = await axios.get(
+          `https://api.aladhan.com/v1/timingsByCity?country=EG&city=${city.name}`
+        );
+        setTimes({ Fajr, Dhuhr, Asr, Maghrib, Isha });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getTimes();
+  }, [city]);
+
   return (
     <Grid
       container
