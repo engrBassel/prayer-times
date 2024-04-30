@@ -1,3 +1,18 @@
 .container {
   padding: 1rem;
 }
+#demo-simple-select-helper-label {
+  color: #fff;
+}
+#demo-simple-select-helper {
+  color: #fff;
+}
+.MuiOutlinedInput-notchedOutline {
+  border-color: #fff !important;
+}
+.MuiSvgIcon-root {
+  color: #fff !important;
+}
+.css-1xcs70u-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: #fff !important;
+}
