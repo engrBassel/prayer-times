@@ -5,7 +5,9 @@ import "dayjs/locale/ar-ma";
 dayjs.locale("ar-ma");
 
 function DateTime() {
-  const [dateTimeToday, setDateTimeToday] = useState("التاريخ و الوقت");
+  const [dateTimeToday, setDateTimeToday] = useState(
+    "اليوم 00 الشهر 0000 | 00:00 ص"
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
