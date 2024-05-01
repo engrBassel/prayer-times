@@ -2,7 +2,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { City } from "../App";
+import { CityType } from "../App";
 
 const availableCities = [
   {
@@ -27,13 +27,13 @@ function CitySelect({
   city,
   handleCityChange,
 }: {
-  city: City;
-  handleCityChange: (city: City) => void;
+  city: CityType;
+  handleCityChange: (city: CityType) => void;
 }) {
   const handleChange = (e: SelectChangeEvent) => {
     const selectedCity = availableCities.find(
       (city) => city.name == e.target.value
-    ) as City;
+    ) as CityType;
     handleCityChange(selectedCity);
   };
 
