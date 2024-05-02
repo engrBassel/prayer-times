@@ -10,7 +10,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { TimesType, TimeNameType } from "../App";
 
-const images = [fajrImage, dhuhrImage, asrImage, maghribImage, ishaImage];
+const imagesArr = [fajrImage, dhuhrImage, asrImage, maghribImage, ishaImage];
 
 function Times({
   times,
@@ -31,7 +31,7 @@ function Times({
           <Card>
             <CardMedia
               sx={{ height: 150, width: 200 }}
-              image={images[indx]}
+              image={imagesArr[indx]}
               title={`${timesNames[indx].name} Prayer`}
             />
             <CardContent>
