@@ -1,20 +1,15 @@
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import DateTime from "./DateTime";
-import { TimeNameType } from "../App";
 
 function Info({
   cityArName,
-  nextPrayer,
+  nextPrayerArName,
   timeToNextPrayer,
 }: {
   cityArName: string;
-  nextPrayer: TimeNameType;
-  timeToNextPrayer: {
-    hours: number;
-    minutes: number;
-    seconds: number;
-  };
+  nextPrayerArName: string;
+  timeToNextPrayer: string;
 }) {
   return (
     <Grid
@@ -30,26 +25,8 @@ function Info({
         <h2>{cityArName}</h2>
       </Stack>
       <Stack spacing={2}>
-        <p>متبقي حتى صلاة {nextPrayer.arName}</p>
-        <h2>
-          {`
-            ${
-              timeToNextPrayer.seconds >= 10
-                ? timeToNextPrayer.seconds
-                : `0${timeToNextPrayer.seconds}`
-            } : 
-            ${
-              timeToNextPrayer.minutes >= 10
-                ? timeToNextPrayer.minutes
-                : `0${timeToNextPrayer.minutes}`
-            } : 
-            ${
-              timeToNextPrayer.hours >= 10
-                ? timeToNextPrayer.hours
-                : `0${timeToNextPrayer.hours}`
-            }
-            `}
-        </h2>
+        <p>متبقي حتى صلاة {nextPrayerArName}</p>
+        <h2>{timeToNextPrayer}</h2>
       </Stack>
     </Grid>
   );

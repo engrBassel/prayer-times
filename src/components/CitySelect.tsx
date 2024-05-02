@@ -30,12 +30,12 @@ function CitySelect({
   city: CityType;
   handleCityChange: (city: CityType) => void;
 }) {
-  const handleChange = (e: SelectChangeEvent) => {
+  function handleChange(e: SelectChangeEvent) {
     const selectedCity = availableCities.find(
       (city) => city.name == e.target.value
     ) as CityType;
     handleCityChange(selectedCity);
-  };
+  }
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>

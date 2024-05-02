@@ -1,18 +1,28 @@
 .container {
   padding: 1rem;
 }
+.main-heading {
+  text-align: center;
+}
+.MuiDivider-root::before,
+.MuiDivider-root::after {
+  border-color: #ffd700 !important;
+}
+.MuiChip-root {
+  background-color: #ffd700 !important;
+}
 #demo-simple-select-helper-label {
-  color: #fff;
+  color: #ffd700;
 }
 #demo-simple-select-helper {
-  color: #fff;
+  color: #ffd700;
 }
 .MuiOutlinedInput-notchedOutline {
-  border-color: #fff !important;
+  border-color: #ffd700 !important;
 }
 .MuiSvgIcon-root {
-  color: #fff !important;
+  color: #ffd700 !important;
 }
-.css-1xcs70u-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-  color: #fff !important;
+.Mui-focused {
+  color: #ffd700 !important;
 }

@@ -1,12 +1,16 @@
+// imports start
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { DateTime as luxon } from "luxon";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import Chip from "@mui/material/Chip";
 import Info from "./components/Info";
 import Times from "./components/Times";
 import CitySelect from "./components/CitySelect";
 import "./App.css";
+// imports end
 
 // Types start
 export type CityType = {
@@ -65,11 +69,7 @@ function App() {
     Isha: "00:00",
   });
   const [nextPrayerIndx, setNextPrayerIndx] = useState(0);
-  const [timeToNextPrayer, setTimeToNextPrayer] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [timeToNextPrayer, setTimeToNextPrayer] = useState("00 : 00 : 00");
   // States end
 
   // get times start
@@ -96,20 +96,20 @@ function App() {
 
   // calculate the next prayer and remaining time to it start
   useEffect(() => {
+    let prayerIndx = 0;
     const interval = setInterval(() => {
-      const timeNow = luxon.now();
-      let prayerIndx = 0;
+      const timeNowAsLuxon = luxon.now();
 
       // calculate the next prayer index start
       for (let i = 0; i < timesNames.length; i++) {
         if (
           timesNames[i + 1] &&
-          timeNow >
+          timeNowAsLuxon >
             luxon.fromFormat(
               times[timesNames[i].name as keyof TimesType],
               "hh:mm"
             ) &&
-          timeNow <
+          timeNowAsLuxon <
             luxon.fromFormat(
               times[timesNames[i + 1].name as keyof TimesType],
               "hh:mm"
@@ -125,37 +125,28 @@ function App() {
       // calculate the next prayer index end
 
       // calculate the remaining time to the next prayer start
-      const timeToNextPrayerLuxon = luxon.fromFormat(
+      // create luxon object of the next prayer time
+      const timeOfNextPrayerAsLuxon = luxon.fromFormat(
         times[timesNames[prayerIndx].name as keyof TimesType],
         "hh:mm"
       );
-      let hours: number, minutes: number, seconds: number;
+
+      // check if the next prayer is Fajr or not
       if (prayerIndx == 0) {
         const timeToMidnight = luxon
           .fromFormat("23:59:59", "hh:mm:ss")
           .diffNow();
-        const timeFromMidnight = timeToNextPrayerLuxon.diff(
+        const timeFromMidnight = timeOfNextPrayerAsLuxon.diff(
           luxon.fromFormat("00:00:00", "hh:mm:ss")
         );
-        const {
-          hours: h,
-          minutes: m,
-          seconds: s,
-        } = timeToMidnight.plus(timeFromMidnight).shiftToAll();
-        [hours, minutes, seconds] = [h, m, s];
+        setTimeToNextPrayer(
+          timeToMidnight.plus(timeFromMidnight).toFormat("ss : mm : hh")
+        );
       } else {
-        const {
-          hours: h,
-          minutes: m,
-          seconds: s,
-        } = timeToNextPrayerLuxon.diffNow().shiftToAll();
-        [hours, minutes, seconds] = [h, m, s];
+        setTimeToNextPrayer(
+          timeOfNextPrayerAsLuxon.diffNow().toFormat("ss : mm : hh")
+        );
       }
-      setTimeToNextPrayer({
-        hours,
-        minutes,
-        seconds,
-      });
       // calculate the remaining time to the next prayer end
     }, 1000);
 
@@ -171,14 +162,21 @@ function App() {
 
   return (
     <Container className="container">
-      <Stack spacing={5}>
+      <Stack spacing={3}>
+        <h1 className="main-heading">مواقيت الصلاة حسب &nbsp; aladhan.com</h1>
+        <Divider variant="middle">
+          <Chip label="المعلومات" size="small" />
+        </Divider>
         <Info
           cityArName={city.arName}
-          nextPrayer={timesNames[nextPrayerIndx]}
+          nextPrayerArName={timesNames[nextPrayerIndx].arName}
           timeToNextPrayer={timeToNextPrayer}
         />
-        <Times times={times} timesNames={timesNames} />
+        <Divider variant="middle">
+          <Chip label="المواقيت" size="small" />
+        </Divider>
         <CitySelect city={city} handleCityChange={handleCityChange} />
+        <Times times={times} timesNames={timesNames} />
       </Stack>
     </Container>
   );

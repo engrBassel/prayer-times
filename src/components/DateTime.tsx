@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import dayjs from "dayjs";
-import "dayjs/locale/ar-ma";
-
-dayjs.locale("ar-ma");
+import { DateTime as luxon } from "luxon";
 
 function DateTime() {
   const [dateTimeToday, setDateTimeToday] = useState(
@@ -11,7 +8,12 @@ function DateTime() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDateTimeToday(dayjs().format("dddd DD MMMM YYYY | hh:mm a"));
+      setDateTimeToday(
+        luxon
+          .now()
+          .setLocale("ar-ly")
+          .toLocaleString(luxon.DATETIME_MED_WITH_WEEKDAY)
+      );
     }, 1000);
 
     return () => clearInterval(interval);
