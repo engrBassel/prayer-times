@@ -3,4 +3,5 @@
 - using Vite, React, TypeScript,
 - Axios for fetching data,
 - API from aladhan.com,
-- Material UI for components
+- Luxon for dealing with dates and times,
+- Material UI for components.
